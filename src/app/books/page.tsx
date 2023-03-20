@@ -3,7 +3,7 @@ import { getBooksList } from "@/app/BookAPI";
 import Link from "next/link";
 import { BiLinkExternal } from "react-icons/bi";
 
-const Home = async () => {
+const page = async () => {
   const booksList = await getBooksList();
 
   const allBooks = [...booksList];
@@ -49,4 +49,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default page;
