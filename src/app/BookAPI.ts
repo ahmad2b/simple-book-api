@@ -104,11 +104,35 @@ export const deleteOrder = async (id: string) => {
     cache: "no-cache",
   });
 
+  if (res.status === 204) {
+    return true; // item deleted successfully
+  } else {
+    const data = await res.json();
+    return data.status; // return any error message or status code returned by the server
+  }
+};
+
+export const updateOrder = async (id: string, customerName: string) => {
+  const res = await fetch(`${baseUrl}/orders/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.BOOK_TOKEN}`,
+    },
+    body: JSON.stringify({
+      customerName,
+    }),
+    cache: "no-cache",
+  });
+
   if (!res.ok) {
     throw new Error(`Failed to fetch data! status: ${res.status}`);
   }
 
-  const data = await res.json();
-
-  return data;
+  if (res.status === 204) {
+    return true; // item deleted successfully
+  } else {
+    const data = await res.json();
+    return data.status; // return any error message or status code returned by the server
+  }
 };
